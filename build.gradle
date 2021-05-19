@@ -1,0 +1,25 @@
+import escholz.sandbox.Libraries
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath Libraries.Android.Gradle
+        classpath Libraries.Kotlin.Gradle
+        classpath Libraries.Testing.JUnit.Gradle
+        classpath Libraries.Jetpack.Hilt.Gradle
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+tasks.create("clean", Delete.class) {
+    delete rootProject.buildDir
+}

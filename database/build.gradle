@@ -1,0 +1,53 @@
+import escholz.sandbox.Libraries
+
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'de.mannodermaus.android-junit5'
+}
+
+android {
+    compileSdkVersion property("android.compileSdk") as Integer
+
+    defaultConfig {
+        minSdkVersion property("android.minSdk") as Integer
+        targetSdkVersion property("android.targetSdk") as Integer
+        versionCode property("android.versionCode") as Integer
+        versionName property("android.versionName") as String
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation Libraries.Kotlin.StdLib
+    implementation Libraries.Jetpack.KotlinExt
+    implementation Libraries.Jetpack.Hilt.Runtime
+    implementation Libraries.Jetpack.Room.Runtime
+    implementation Libraries.Jetpack.Room.KotlinExt
+
+    kapt Libraries.Jetpack.Hilt.AndroidCompiler
+    kapt Libraries.Jetpack.Room.Compiler
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:5.3.2"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.3.2"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:5.3.2"
+    testRuntimeOnly "org.junit.vintage:junit-vintage-engine:5.3.2"
+}

@@ -1,0 +1,4 @@
+include ':app'
+include ':database'
+include ':marvel-api'
+include ':marvel-feature'

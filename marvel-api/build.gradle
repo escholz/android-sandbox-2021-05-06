@@ -1,0 +1,47 @@
+import escholz.sandbox.Libraries
+
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    compileSdkVersion property("android.compileSdk") as Integer
+
+    defaultConfig {
+        minSdkVersion property("android.minSdk") as Integer
+        targetSdkVersion property("android.targetSdk") as Integer
+        versionCode property("android.versionCode") as Integer
+        versionName property("android.versionName") as String
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation Libraries.Jetpack.KotlinExt
+    implementation Libraries.Jetpack.Hilt.Runtime
+
+    // TODO: Need Network Client. Wanna use Cronet again or just default to OkHttp?
+    // TODO: Need a kotlin serializer
+
+
+    kapt Libraries.Jetpack.Hilt.AndroidCompiler
+}
